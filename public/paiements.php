@@ -244,7 +244,7 @@ $lbl_confirm_del = $lang==='en'?'Delete this card?':($lang==='ar'?'حذف هذه
                     <svg width="18" height="14"viewBox="0 0 18 14"><rect x="0" y="0"width="18" height="14"rx="2"fill="none"/><line x1="6" y1="0"x2="6" y2="14"stroke="rgba(0,0,0,.3)"stroke-width="1"/><line x1="12" y1="0"x2="12" y2="14"stroke="rgba(0,0,0,.3)"stroke-width="1"/><line x1="0" y1="5"x2="18" y2="5"stroke="rgba(0,0,0,.3)"stroke-width="1"/><line x1="0" y1="9"x2="18" y2="9"stroke="rgba(0,0,0,.3)"stroke-width="1"/></svg>
                   </div>
                 </div>
-                <div class="cc-number">•••• •••• •••• <?= htmlspecialchars($card['card_last4']) ?></div>
+                <div class="cc-number">•••• •••• •••• <?= htmlspecialchars($card['card_last4'] ?? '') ?></div>
                 <div class="cc-bottom">
                   <div>
                     <div class="cc-holder"><?= htmlspecialchars($holderName) ?></div>
@@ -253,7 +253,7 @@ $lbl_confirm_del = $lang==='en'?'Delete this card?':($lang==='ar'?'حذف هذه
                   </div>
                   <div style="text-align:right">
                     <div class="cc-exp-label"><?= $lbl_expire ?></div>
-                    <div class="cc-exp"><?= str_pad($card['exp_month'],2,'0',STR_PAD_LEFT) ?>/<?= $card['exp_year'] ?></div>
+                    <div class="cc-exp"><?= str_pad((string) ($card['exp_month'] ?? 0), 2, '0', STR_PAD_LEFT) ?>/<?= (int) ($card['exp_year'] ?? 0) ?></div>
                   </div>
                 </div>
               </div>
@@ -261,13 +261,13 @@ $lbl_confirm_del = $lang==='en'?'Delete this card?':($lang==='ar'?'حذف هذه
                 <?php if (empty($card['is_default'])): ?>
                 <form method="POST" style="display:inline">
                   <input type="hidden" name="action" value="set_default">
-                  <input type="hidden" name="card_id" value="<?= htmlspecialchars($card[' id']) ?>">
+                  <input type="hidden" name="card_id" value="<?= htmlspecialchars($card['id'] ?? '') ?>">
                   <button type="submit" class="btn-sm-def"><?= $lbl_set_default ?></button>
                 </form>
                 <?php endif; ?>
                 <form method="POST" style="display:inline" onsubmit="return confirm('<?= $lbl_confirm_del ?>')">
                   <input type="hidden" name="action" value="delete">
-                  <input type="hidden" name="card_id" value="<?= htmlspecialchars($card[' id']) ?>">
+                  <input type="hidden" name="card_id" value="<?= htmlspecialchars($card['id'] ?? '') ?>">
                   <button type="submit" class="btn-sm-del"><?= $lbl_delete ?></button>
                 </form>
               </div>
