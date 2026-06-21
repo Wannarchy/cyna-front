@@ -3,6 +3,15 @@
 const CYNA_USER_SESSION_LIFETIME = 604800;
 const CYNA_PERSIST_COOKIE = 'cyna_persist';
 
+function cyna_session_is_https(): bool
+{
+    if (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        return true;
+    }
+
+    return strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
+}
+
 function cyna_session_is_admin_request(): bool
 {
     $script = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
@@ -34,7 +43,7 @@ function cyna_session_set_cookie_params(int $lifetime): void
             'lifetime' => $lifetime,
             'path'     => '/',
             'domain'   => '',
-            'secure'   => false,
+            'secure'   => cyna_session_is_https(),
             'httponly' => true,
             'samesite' => 'Lax',
         ]);
@@ -67,6 +76,7 @@ function cyna_session_apply_login_policy(bool $isAdmin): void
         setcookie(CYNA_PERSIST_COOKIE, '', [
             'expires'  => time() - 3600,
             'path'     => '/',
+            'secure'   => cyna_session_is_https(),
             'httponly' => true,
             'samesite' => 'Lax',
         ]);
@@ -75,6 +85,7 @@ function cyna_session_apply_login_policy(bool $isAdmin): void
         setcookie(CYNA_PERSIST_COOKIE, '1', [
             'expires'  => time() + CYNA_USER_SESSION_LIFETIME,
             'path'     => '/',
+            'secure'   => cyna_session_is_https(),
             'httponly' => true,
             'samesite' => 'Lax',
         ]);
@@ -86,6 +97,7 @@ function cyna_session_apply_login_policy(bool $isAdmin): void
         setcookie(session_name(), session_id(), [
             'expires'  => $lifetime > 0 ? time() + $lifetime : 0,
             'path'     => '/',
+            'secure'   => cyna_session_is_https(),
             'httponly' => true,
             'samesite' => 'Lax',
         ]);
@@ -98,6 +110,7 @@ function cyna_session_destroy(): void
         setcookie(CYNA_PERSIST_COOKIE, '', [
             'expires'  => time() - 3600,
             'path'     => '/',
+            'secure'   => cyna_session_is_https(),
             'httponly' => true,
             'samesite' => 'Lax',
         ]);

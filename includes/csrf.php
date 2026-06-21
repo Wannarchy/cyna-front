@@ -36,19 +36,39 @@ function csrf_field() {
 /**
  * Vérifier le token CSRF — stoppe l'exécution si invalide
  */
-function csrf_verify() {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+function csrf_verify(): void
+{
+    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+        return;
+    }
 
     $token_recu = $_POST['_csrf_token'] ?? '';
     $token_sess = $_SESSION['csrf_token'] ?? '';
 
-    if (empty($token_recu) || empty($token_sess) || !hash_equals($token_sess, $token_recu)) {
+    if (empty($token_recu) || empty($token_sess) || ! hash_equals($token_sess, $token_recu)) {
+        csrf_fail();
+    }
+
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+function csrf_fail(): void
+{
+    $accept = (string) ($_SERVER['HTTP_ACCEPT'] ?? '');
+    $wantsJson = str_contains($accept, 'application/json')
+        || strtolower((string) ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '')) === 'xmlhttprequest';
+
+    if ($wantsJson) {
         http_response_code(403);
+        header('Content-Type: application/json; charset=utf-8');
         die(json_encode(['error' => 'Token CSRF invalide. Rechargez la page et réessayez.']));
     }
 
-    // Régénérer le token après validation (rotation)
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    $_SESSION['flash_erreurs'] = ['Session expirée ou formulaire déjà envoyé. Réessayez.'];
+    $target = basename((string) ($_SERVER['SCRIPT_NAME'] ?? 'index.php'));
+
+    header('Location: '.$target, true, 303);
+    exit;
 }
 
 /**
