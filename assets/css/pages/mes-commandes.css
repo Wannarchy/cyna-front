@@ -1,0 +1,264 @@
+.wrap {
+  max-width: 1200px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.form-ctrl {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  padding: 8px 12px;
+  font-size: 0.83rem;
+  color: #e8eaf2;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.form-ctrl::placeholder {
+  color: #3a3f52;
+}
+
+.form-ctrl:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(38, 208, 206, 0.1);
+}
+
+.year-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #8b92a8;
+  background: transparent;
+  transition: all 0.15s;
+}
+
+.year-pill:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.year-pill.active {
+  background: var(--grad);
+  color: #fff;
+  border-color: transparent;
+}
+
+.year-group {
+  margin-bottom: 32px;
+}
+
+.year-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.year-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.order-row {
+  background: #131c30;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 8px;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+
+.order-row:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.order-row.open {
+  border-color: rgba(38, 208, 206, 0.25);
+  background: rgba(38, 208, 206, 0.04);
+}
+
+.order-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.order-id {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(79, 140, 255, 0.12);
+  color: #93c5fd;
+  border: 1px solid rgba(79, 140, 255, 0.2);
+  font-family: 'DM Mono', monospace;
+}
+
+.order-name {
+  flex: 1;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.order-services {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.order-date {
+  font-size: 0.75rem;
+  color: #5c6378;
+  font-family: 'DM Mono', monospace;
+}
+
+.order-total {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.order-chevron {
+  color: #5c6378;
+  transition: transform 0.2s;
+}
+
+.order-row.open .order-chevron {
+  transform: rotate(90deg);
+}
+
+.order-detail {
+  display: none;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: 14px;
+}
+
+.order-row.open .order-detail {
+  display: block;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.detail-box {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.detail-box-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #5c6378;
+  margin-bottom: 6px;
+}
+
+.detail-box-val {
+  font-size: 0.83rem;
+  color: #e8eaf2;
+  line-height: 1.5;
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+  margin-bottom: 12px;
+}
+
+.items-table thead tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.items-table thead th {
+  padding: 8px 12px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #5c6378;
+  text-align: left;
+}
+
+.items-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.items-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.items-table td {
+  padding: 9px 12px;
+  color: #e8eaf2;
+}
+
+.btn-facture {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(38, 208, 206, 0.1);
+  color: #26d0ce;
+  border: 1px solid rgba(38, 208, 206, 0.2);
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.btn-facture:hover {
+  background: rgba(38, 208, 206, 0.2);
+  color: #26d0ce;
+}
+
+.no-orders {
+  text-align: center;
+  padding: 48px 24px;
+  color: #5c6378;
+}
+
+.no-orders .icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

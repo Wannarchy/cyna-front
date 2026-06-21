@@ -1,0 +1,219 @@
+/* Account space — shared layout & components (navbar → legacy-navbar.css) */
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.sb {
+  width: 230px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 72px;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.u-card {
+  background: var(--cyna-card, #0f1628);
+  border: 1px solid var(--cyna-border, rgba(255, 255, 255, 0.07));
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.u-av {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--cyna-grad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 auto 8px;
+}
+
+.u-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.u-email {
+  font-size: 0.7rem;
+  color: #5c6378;
+  margin-top: 2px;
+}
+
+.sb-nav {
+  background: var(--cyna-card, #0f1628);
+  border: 1px solid var(--cyna-border, rgba(255, 255, 255, 0.07));
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.sb-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  color: #8b92a8;
+  text-decoration: none;
+  font-size: 0.83rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.15s;
+}
+
+.sb-nav a:last-child {
+  border-bottom: none;
+}
+
+.sb-nav a:hover {
+  color: #e8eaf2;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.sb-nav a.active {
+  color: #fff;
+  background: rgba(38, 208, 206, 0.08);
+  border-left: 3px solid var(--cyna-cyan);
+}
+
+.ccard {
+  background: var(--cyna-card, #0f1628);
+  border: 1px solid var(--cyna-border, rgba(255, 255, 255, 0.07));
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.ccard-head {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: #8b92a8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ccard-body {
+  padding: 20px;
+}
+
+.form-label {
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: #8b92a8;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-control,
+.form-select {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 9px 13px;
+  font-size: 0.87rem;
+  color: #e8eaf2 !important;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+.form-control::placeholder {
+  color: #3a3f52;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--cyna-cyan);
+  box-shadow: 0 0 0 3px rgba(38, 208, 206, 0.1);
+}
+
+.form-select option {
+  background: #0f1628;
+}
+
+.btn-save {
+  background: var(--cyna-grad);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-size: 0.87rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.btn-save:hover {
+  opacity: 0.85;
+}
+
+.a-success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.84rem;
+  color: #4ade80;
+  margin-bottom: 16px;
+}
+
+.a-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.84rem;
+  color: #f87171;
+  margin-bottom: 16px;
+}
+
+footer {
+  border-top: 1px solid var(--cyna-border, rgba(255, 255, 255, 0.07));
+  padding: 24px 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
+}
+
+footer a {
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+footer a:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    flex-direction: column;
+  }
+
+  .sb {
+    width: 100%;
+    position: static;
+  }
+}

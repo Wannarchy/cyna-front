@@ -1,0 +1,9 @@
+/* mot_de_passe_oublie.php — page-specific only */
+
+.auth-card {
+  max-width: 400px;
+}
+
+.auth-title {
+  font-size: 1.4rem;
+}

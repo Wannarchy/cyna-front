@@ -1,0 +1,62 @@
+/* Bootstrap navbar variant used on checkout, contact, confirmation, account pages */
+
+.legacy-nav.navbar {
+  background: rgba(11, 16, 32, 0.97) !important;
+  border-bottom: 1px solid var(--cyna-border, rgba(255, 255, 255, 0.07));
+  backdrop-filter: blur(12px);
+}
+
+.legacy-nav.navbar--tall {
+  backdrop-filter: blur(14px);
+  height: 62px;
+  padding: 0;
+}
+
+.legacy-nav.navbar--tall .container,
+.legacy-nav.navbar--tall .container-fluid {
+  height: 62px;
+  align-items: center;
+}
+
+.legacy-nav .navbar-brand {
+  font-weight: 800;
+  font-size: 1.2rem;
+  background: var(--cyna-grad, linear-gradient(135deg, #1a2980, #26d0ce));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+
+.legacy-nav.navbar--tall .navbar-brand {
+  font-weight: 900;
+  font-size: 1.3rem;
+  letter-spacing: -0.5px;
+  padding: 0;
+  margin-right: 20px;
+}
+
+.legacy-nav .nav-link {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.88rem;
+}
+
+.legacy-nav .nav-link:hover {
+  color: #fff !important;
+}
+
+.legacy-nav .nav-link-plain,
+.legacy-nav .nav-link-p {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.83rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.15s;
+}
+
+.legacy-nav .nav-link-plain:hover,
+.legacy-nav .nav-link-p:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}

@@ -1,0 +1,33 @@
+.cyna-static {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.cyna-static-intro {
+  font-size: 0.9rem;
+  color: #8b92a8;
+  margin: 12px 0 28px;
+}
+
+.cyna-static-section {
+  background: #0f1628;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.cyna-static-section h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 12px;
+}
+
+.cyna-static-section p {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
+  margin: 0;
+}

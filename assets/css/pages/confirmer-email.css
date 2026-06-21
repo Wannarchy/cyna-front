@@ -1,0 +1,9 @@
+/* confirmer-email.php — uses auth-status.css */
+
+.auth-status .card {
+  max-width: 420px;
+}
+
+.auth-status h2 {
+  font-size: 1.4rem;
+}

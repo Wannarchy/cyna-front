@@ -1,0 +1,5 @@
+/* connexion.php — page-specific only (shared rules in auth.css) */
+
+.auth-header {
+  margin-bottom: 32px;
+}

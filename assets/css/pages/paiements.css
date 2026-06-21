@@ -1,0 +1,220 @@
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.cc-visual {
+  border-radius: 14px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: default;
+}
+
+.cc-visual::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cc-visual::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  right: 20px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.cc-brand {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cc-chip {
+  width: 30px;
+  height: 22px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #d4af37, #f5e17a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cc-number {
+  font-family: 'DM Mono', monospace;
+  font-size: 1rem;
+  color: #fff;
+  letter-spacing: 3px;
+  position: relative;
+  z-index: 1;
+  margin: 14px 0;
+}
+
+.cc-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.cc-holder {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cc-exp-label {
+  font-size: 0.58rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cc-exp {
+  font-size: 0.82rem;
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+}
+
+.default-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.expired-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.cc-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-sm-del {
+  font-size: 0.73rem;
+  padding: 5px 12px;
+  border-radius: 7px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.btn-sm-del:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.btn-sm-def {
+  font-size: 0.73rem;
+  padding: 5px 12px;
+  border-radius: 7px;
+  background: rgba(38, 208, 206, 0.1);
+  color: #26d0ce;
+  border: 1px solid rgba(38, 208, 206, 0.2);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.btn-sm-def:hover {
+  background: rgba(38, 208, 206, 0.2);
+}
+
+.btn-cancel {
+  background: transparent;
+  color: #8b92a8;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-cancel:hover {
+  color: #e8eaf2;
+}
+
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--grad);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none;
+}
+
+.btn-add:hover {
+  opacity: 0.85;
+  color: #fff;
+}
+
+.security-note {
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.78rem;
+  color: rgba(245, 158, 11, 0.8);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
