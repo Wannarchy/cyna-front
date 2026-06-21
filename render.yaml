@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: cyna-front
+    runtime: docker
+    plan: free
+    region: frankfurt
+    healthCheckPath: /
+    envVars:
+      - key: CYNA_API_URL
+        value: https://laravel-api-1-zb19.onrender.com
+      - key: CYNA_API_SSL_VERIFY
+        value: "true"
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
