@@ -128,7 +128,7 @@ mon-projet/
 
 Chemins relatifs à la racine du projet. En local : `http://localhost/mon-projet/…`
 
-### 10.1 Vitrine (`public/`)
+### 8.1 Vitrine (`public/`)
 
 | Route (fichier) | Accès | Description | Données personnelles |
 |-----------------|-------|-------------|----------------------|
@@ -162,7 +162,7 @@ Chemins relatifs à la racine du projet. En local : `http://localhost/mon-projet
 | `public/adresses.php` | **Client** | Adresses livraison | Adresses postales |
 | `public/paiements.php` | **Client** | Cartes enregistrées | 4 derniers chiffres, ref. Stripe |
 
-### 10.2 Back-office (`admin/`)
+### 8.2 Back-office (`admin/`)
 
 | Route (fichier) | Accès | Description | Données personnelles |
 |-----------------|-------|-------------|----------------------|
@@ -196,6 +196,7 @@ Configurer dans le [dashboard Stripe](https://dashboard.stripe.com/webhooks) :
 - Événements : `payment_intent.succeeded`, `payment_intent.payment_failed`
 
 ---
+
 
 ## Dépannage
 
