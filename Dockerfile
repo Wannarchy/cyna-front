@@ -14,6 +14,7 @@ opcache.max_accelerated_files=5000\n\
 opcache.validate_timestamps=0" > /usr/local/etc/php/conf.d/opcache.ini
 
 COPY docker/php-session.ini /usr/local/etc/php/conf.d/99-session.ini
+COPY docker/php-upload.ini /usr/local/etc/php/conf.d/99-upload.ini
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html
 
