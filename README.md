@@ -112,7 +112,7 @@ mon-projet/
 
 ---
 
-## 9. Authentification & protection
+## 6. Authentification & protection
 
 | Accès | Condition |
 |-------|-----------|
@@ -124,7 +124,7 @@ mon-projet/
 
 ---
 
-## 10. Catalogue des routes / pages
+## 7. Catalogue des routes / pages
 
 Chemins relatifs à la racine du projet. En local : `http://localhost/mon-projet/…`
 
@@ -197,22 +197,6 @@ Configurer dans le [dashboard Stripe](https://dashboard.stripe.com/webhooks) :
 
 ---
 
-## RGPD (résumé)
-
-| Donnée | Où |
-|--------|-----|
-| Compte (nom, e-mail, MDP hashé) | `utilisateurs` |
-| Commandes / facturation | `orders` |
-| Adresses | `user_addresses` |
-| Contact / chatbot | `contact_messages`, `chat_logs` |
-| Paiement | Stripe uniquement (pas de numéro de carte complet) |
-
-**Mesures :** mots de passe hashés, e-mail confirmé avant achat, OTP admin, HTTPS en prod, webhook signé.
-
-Détails complets : `cyna-api/docs/politique-rgpd-cyna.pdf`
-
----
-
 ## Dépannage
 
 | Problème | Solution |
@@ -224,7 +208,3 @@ Détails complets : `cyna-api/docs/politique-rgpd-cyna.pdf`
 | Admin ne se connecte pas | Vérifier SMTP (OTP) et sessions PHP |
 
 ---
-
-## cyna-api
-
-Ce front lit/écrit **MySQL en direct**. L’API Laravel (`cyna-api`) est un service séparé (Sanctum, Supabase). En production, les deux peuvent coexister : vérifier qu’une seule base de données fait foi pour éviter les doublons.
