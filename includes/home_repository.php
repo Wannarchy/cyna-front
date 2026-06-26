@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/api_client.php';
+require_once __DIR__ . '/cloudinary.php';
 
 if (! function_exists('product_is_available')) {
     function product_is_available(array $product): bool
@@ -58,6 +59,7 @@ function product_map_legacy(array $product): array
     $monthly = $product['price_monthly'] ?? ($product['prix_mensuel'] ?? 0);
     $yearly = $product['price_yearly'] ?? ($product['prix_annuel'] ?? 0);
     $image = $product['image_path'] ?? ($product['image'] ?? 'logo.jpg');
+    $imageUrl = $product['image_url'] ?? null;
     $available = product_is_available($product) ? 1 : 0;
     $stock = array_key_exists('stock', $product) ? (int) $product['stock'] : null;
 
@@ -67,6 +69,7 @@ function product_map_legacy(array $product): array
         'name' => $name,
         'nom_produit' => $name,
         'image_path' => $image,
+        'image_url' => is_string($imageUrl) ? $imageUrl : cloudinary_delivery_url($image),
         'image' => $image,
         'price_monthly' => $monthly,
         'prix_mensuel' => $monthly,
@@ -154,11 +157,14 @@ function categories_get_all($db): array
     }
 
     return array_map(static function (array $cat): array {
+        $imagePath = $cat['image_path'] ?? 'logo.jpg';
+
         return [
             'id' => $cat['id'] ?? 0,
             'name' => $cat['name'] ?? '',
             'nom' => $cat['name'] ?? '',
-            'image_path' => $cat['image_path'] ?? 'logo.jpg',
+            'image_path' => $imagePath,
+            'image_url' => $cat['image_url'] ?? cloudinary_delivery_url(is_string($imagePath) ? $imagePath : null),
             'sort_order' => $cat['sort_order'] ?? 0,
             'is_active' => ! empty($cat['is_active']) ? 1 : 0,
         ];
@@ -230,23 +236,14 @@ function slide_subtitle(array $slide, string $lang): string
     return (string) ($slide[$key] ?? $slide['subtitle'] ?? '');
 }
 
-function asset_image(?string $path): string
+function asset_image(?string $path, ?string $imageUrl = null): string
 {
-    $path = trim((string) ($path ?? ''));
-    if ($path === '' || in_array($path, ['logo.jpg', 'logo.png'], true)) {
-        return 'assets/images/logo.jpg';
-    }
-
-    if (preg_match('#^https?://#i', $path)) {
-        return $path;
-    }
-
-    return ltrim(str_replace('\\', '/', $path), '/');
+    return cloudinary_resolve_image_src($path, $imageUrl);
 }
 
-function image_display_src(?string $path, string $relativePrefix = ''): string
+function image_display_src(?string $path, string $relativePrefix = '', ?string $imageUrl = null): string
 {
-    $resolved = asset_image($path);
+    $resolved = asset_image($path, $imageUrl);
 
     if (preg_match('#^https?://#i', $resolved)) {
         return $resolved;

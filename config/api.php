@@ -16,3 +16,4 @@ if (is_readable($envFile)) {
 
 define('API_BASE_URL', rtrim(getenv('CYNA_API_URL') ?: 'https://laravel-api-1-zb19.onrender.com', '/'));
 define('API_SSL_VERIFY', filter_var(getenv('CYNA_API_SSL_VERIFY') ?: 'false', FILTER_VALIDATE_BOOLEAN));
+define('CLOUDINARY_CLOUD_NAME', trim(getenv('CLOUDINARY_CLOUD_NAME') ?: 'drhu5dven'));

@@ -154,7 +154,7 @@ $lbl_social     = $lang==='en'?'Social':($lang==='ar'?'التواصل الاجت
           <div class="col-12 col-sm-6 col-lg-4">
             <a class="cat-card" href="public/catalogue.php?category_id=<?= (int)$cat['id'] ?>">
               <img class="cat-card-img"
-                   src="<?= htmlspecialchars(asset_image($cat['image_path'] ?? null)) ?>"
+                   src="<?= htmlspecialchars(asset_image($cat['image_path'] ?? null, $cat['image_url'] ?? null)) ?>"
                    alt="<?= htmlspecialchars($cat['name']) ?>">
               <div class="cat-card-body">
                 <span class="cat-card-name"><?= htmlspecialchars($cat['name']) ?></span>

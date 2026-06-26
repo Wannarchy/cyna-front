@@ -7,6 +7,7 @@ if [ ! -f /var/www/html/.env ]; then
   {
     [ -n "$CYNA_API_URL" ] && printf 'CYNA_API_URL=%s\n' "$CYNA_API_URL"
     [ -n "$CYNA_API_SSL_VERIFY" ] && printf 'CYNA_API_SSL_VERIFY=%s\n' "$CYNA_API_SSL_VERIFY"
+    [ -n "$CLOUDINARY_CLOUD_NAME" ] && printf 'CLOUDINARY_CLOUD_NAME=%s\n' "$CLOUDINARY_CLOUD_NAME"
     [ -n "$STRIPE_PUBLISHABLE_KEY" ] && printf 'STRIPE_PUBLISHABLE_KEY=%s\n' "$STRIPE_PUBLISHABLE_KEY"
     [ -n "$STRIPE_SECRET_KEY" ] && printf 'STRIPE_SECRET_KEY=%s\n' "$STRIPE_SECRET_KEY"
     [ -n "$STRIPE_WEBHOOK_SECRET" ] && printf 'STRIPE_WEBHOOK_SECRET=%s\n' "$STRIPE_WEBHOOK_SECRET"

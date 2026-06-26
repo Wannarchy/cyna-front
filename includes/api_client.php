@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../config/api.php';
+require_once __DIR__ . '/cloudinary.php';
 
 function api_client(): ApiClient
 {
@@ -658,12 +659,20 @@ class ApiClient
             throw new RuntimeException('Réponse upload invalide.');
         }
 
+        $publicId = trim((string) ($data['public_id'] ?? ''));
+        if ($publicId !== '') {
+            $data['public_id'] = $publicId;
+            $data['url'] = cloudinary_delivery_url($publicId) ?? trim((string) ($data['url'] ?? ''));
+        }
+
         $url = trim((string) ($data['url'] ?? $data['secure_url'] ?? ''));
-        if ($url === '') {
+        if ($url === '' && $publicId === '') {
             throw new RuntimeException('Réponse upload sans URL Cloudinary.');
         }
 
-        $data['url'] = $url;
+        if ($url !== '') {
+            $data['url'] = $url;
+        }
 
         return $data;
     }

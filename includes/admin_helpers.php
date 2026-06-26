@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/api_client.php';
+require_once __DIR__ . '/cloudinary.php';
 
 function admin_api(): ApiClient
 {
@@ -185,13 +186,20 @@ function admin_upload_product_image(?array $file, string $folder = 'products'): 
     }
 
     $upload = admin_api()->adminUploadImage($file, $folder);
-    $url = trim((string) ($upload['url'] ?? $upload['secure_url'] ?? ''));
+    $publicId = trim((string) ($upload['public_id'] ?? ''));
 
-    if ($url === '') {
-        throw new RuntimeException('Upload terminé sans URL Cloudinary.');
+    if ($publicId === '') {
+        $fallbackUrl = trim((string) ($upload['url'] ?? $upload['secure_url'] ?? ''));
+        if ($fallbackUrl !== '') {
+            $publicId = cloudinary_normalize_for_storage($fallbackUrl) ?? '';
+        }
     }
 
-    return $url;
+    if ($publicId === '') {
+        throw new RuntimeException('Upload terminé sans identifiant Cloudinary.');
+    }
+
+    return $publicId;
 }
 
 function admin_product_payload(array $input, ?string $newImagePath = null, ?string $currentImagePath = null): array
