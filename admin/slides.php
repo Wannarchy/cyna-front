@@ -1,13 +1,15 @@
 <?php
 require_once __DIR__ . '/header.php';
+require_once __DIR__ . '/../includes/home_repository.php';
 require_once __DIR__ . '/../includes/admin_helpers.php';
 
 $slides = [];
 $edit = null;
+$flashSuccess = trim($_GET['success'] ?? '');
+$flashError = trim($_GET['error'] ?? '');
 
 try {
-    $homepage = admin_api()->getHomepage();
-    $slides = $homepage['slides'] ?? [];
+    $slides = admin_api()->adminGetSlides();
     if (isset($_GET['edit'])) {
         foreach ($slides as $slide) {
             if ((int) ($slide['id'] ?? 0) === (int) $_GET['edit']) {
@@ -16,7 +18,8 @@ try {
             }
         }
     }
-} catch (RuntimeException) {
+} catch (RuntimeException $e) {
+    $flashError = $flashError !== '' ? $flashError : $e->getMessage();
 }
 ?>
 
@@ -26,6 +29,18 @@ try {
     <p>Gérez les slides affichées sur la page d'accueil — avec traductions EN / AR / HE</p>
   </div>
 </div>
+
+<?php if ($flashSuccess !== ''): ?>
+<div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:12px 18px;font-size:.84rem;color:#4ade80;margin-bottom:20px">
+  <?= htmlspecialchars($flashSuccess) ?>
+</div>
+<?php endif; ?>
+
+<?php if ($flashError !== ''): ?>
+<div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:12px 18px;font-size:.84rem;color:#f87171;margin-bottom:20px">
+  <?= htmlspecialchars($flashError) ?>
+</div>
+<?php endif; ?>
 
 <div class="row g-3">
 
@@ -39,9 +54,10 @@ try {
         <?php endif; ?>
       </div>
       <div class="card-body">
-        <form method="POST" action="slide_save.php" data-cyna-validate="admin-slide">
+        <form method="POST" action="slide_save.php" enctype="multipart/form-data" data-cyna-validate="admin-slide">
           <?php if ($edit): ?>
             <input type="hidden" name="id" value="<?= (int)$edit['id'] ?>">
+            <input type="hidden" name="current_image_path" value="<?= htmlspecialchars($edit['image_path'] ?? '') ?>">
           <?php endif; ?>
 
           <!-- FR (obligatoire) -->
@@ -111,9 +127,16 @@ try {
                    value="<?= htmlspecialchars($edit['link_url'] ?? '') ?>">
           </div>
           <div class="mb-3">
-            <label class="form-label">Image (chemin)</label>
-            <input class="form-control" name="image_path" placeholder="assets/images/slide1.jpg"
-                   value="<?= htmlspecialchars($edit['image_path'] ?? '') ?>">
+            <label class="form-label">Image Cloudinary</label>
+            <input class="form-control" type="file" name="image" accept="image/jpeg,image/png,image/webp">
+            <small style="color:var(--c-muted2)">JPG, PNG ou WEBP — max 10 Mo. Laissez vide pour conserver l'image actuelle.</small>
+            <?php if ($edit && ! empty($edit['image_path'])): ?>
+              <div style="margin-top:12px;text-align:center">
+                <img src="<?= htmlspecialchars(image_display_src($edit['image_path'], '../', $edit['image_url'] ?? null)) ?>"
+                     alt="" style="max-width:100%;max-height:140px;border-radius:10px;object-fit:cover;border:1px solid var(--c-border)"
+                     onerror="this.style.display='none'">
+              </div>
+            <?php endif; ?>
           </div>
           <div class="row g-2 mb-3">
             <div class="col-6">
@@ -150,14 +173,23 @@ try {
       </div>
       <table class="ctable">
         <thead>
-          <tr><th>ID</th><th>Titre FR</th><th>EN</th><th>AR</th><th>HE</th><th>Statut</th><th class="text-right">Actions</th></tr>
+          <tr><th>ID</th><th>Image</th><th>Titre FR</th><th>EN</th><th>AR</th><th>HE</th><th>Statut</th><th class="text-right">Actions</th></tr>
         </thead>
         <tbody>
           <?php if (!$slides): ?>
-            <tr><td colspan="7"><div class="empty-state"><div class="icon">▣</div><p>Aucune slide configurée</p></div></td></tr>
+            <tr><td colspan="8"><div class="empty-state"><div class="icon">▣</div><p>Aucune slide configurée</p></div></td></tr>
           <?php else: foreach ($slides as $s): ?>
           <tr style="<?= $edit && (int)$edit['id'] === (int)$s['id'] ? 'background:rgba(38,208,206,.06)' : '' ?>">
             <td class="mono">#<?= (int)$s['id'] ?></td>
+            <td>
+              <?php if (! empty($s['image_path'])): ?>
+                <img src="<?= htmlspecialchars(image_display_src($s['image_path'], '../', $s['image_url'] ?? null)) ?>"
+                     alt="" style="width:48px;height:32px;object-fit:cover;border-radius:6px;border:1px solid var(--c-border)"
+                     onerror="this.style.display='none'">
+              <?php else: ?>
+                <span style="color:#5c6378;font-size:.8rem">—</span>
+              <?php endif; ?>
+            </td>
             <td style="font-weight:500;color:#fff;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="<?= htmlspecialchars($s['title']) ?>">
               <?= htmlspecialchars($s['title']) ?>
             </td>

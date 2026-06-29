@@ -530,6 +530,11 @@ class ApiClient
         $this->delete('admin/promo-codes/'.$id, true);
     }
 
+    public function adminGetSlides(): array
+    {
+        return $this->get('admin/homepage/slides', true)['data'] ?? [];
+    }
+
     public function adminUpdateSlides(array $slides): array
     {
         return $this->put('admin/homepage/slides', ['slides' => $slides], true)['data'] ?? [];

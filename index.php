@@ -108,7 +108,7 @@ $lbl_social     = $lang==='en'?'Social':($lang==='ar'?'التواصل الاجت
             <?php foreach ($slides as $i => $s): ?>
               <div class="carousel-item <?= $i === 0 ? 'active' : '' ?>">
                 <div class="carousel-slide">
-                  <img src="<?= htmlspecialchars(asset_image($s['image_path'] ?? null)) ?>"
+                  <img src="<?= htmlspecialchars(asset_image($s['image_path'] ?? null, $s['image_url'] ?? null)) ?>"
                        alt="<?= htmlspecialchars($s['title']) ?>">
                   <div class="carousel-overlay"></div>
                   <div class="carousel-caption">

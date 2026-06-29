@@ -297,16 +297,24 @@ function admin_category_next_sort_order(): int
     return max($orders) + 1;
 }
 
-function admin_slide_payload(array $input): array
+function admin_slide_payload(array $input, ?string $newImagePath = null, ?string $currentImagePath = null): array
 {
     $payload = [
         'title' => trim($input['title'] ?? ''),
         'subtitle' => trim($input['subtitle'] ?? '') ?: null,
-        'image_path' => trim($input['image_path'] ?? '') ?: 'logo.jpg',
         'link_url' => trim($input['link_url'] ?? '') ?: null,
         'sort_order' => (int) ($input['sort_order'] ?? 1),
         'is_active' => admin_bool($input['is_active'] ?? true),
     ];
+
+    if ($newImagePath !== null && trim($newImagePath) !== '') {
+        $payload['image_path'] = trim($newImagePath);
+    } elseif ($currentImagePath !== null && trim($currentImagePath) !== '' && ! in_array(trim($currentImagePath), ['logo.jpg', 'logo.png'], true)) {
+        $payload['image_path'] = trim($currentImagePath);
+    } else {
+        $manualPath = trim($input['image_path'] ?? '');
+        $payload['image_path'] = $manualPath !== '' ? $manualPath : 'logo.jpg';
+    }
 
     if ((int) ($input['id'] ?? 0) > 0) {
         $payload['id'] = (int) $input['id'];
