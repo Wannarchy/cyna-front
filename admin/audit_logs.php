@@ -81,7 +81,7 @@ try {
 } catch (RuntimeException) {
 }
 
-$build_url = static function (array $extra = []) use ($filter_q, $filter_date, $filter_action, $filter_target_type, $filter_actor_type, $filter_admin_id, $filter_user_id): string {
+$build_url = static function (array $extra = []) use ($filter_q, $filter_date, $filter_action, $filter_target_type, $filter_actor_type, $filter_admin_id, $filter_user_id, $page): string {
     $params = array_merge([
         'q' => $filter_q,
         'date' => $filter_date,
@@ -90,8 +90,9 @@ $build_url = static function (array $extra = []) use ($filter_q, $filter_date, $
         'actor_type' => $filter_actor_type,
         'admin_id' => $filter_admin_id,
         'user_id' => $filter_user_id,
+        'page' => $page > 1 ? $page : null,
     ], $extra);
-    $filtered = array_filter($params, static fn ($value): bool => $value !== '' && $value !== 0);
+    $filtered = array_filter($params, static fn ($value): bool => $value !== '' && $value !== 0 && $value !== null);
 
     return 'audit_logs.php?'.http_build_query($filtered);
 };
@@ -189,6 +190,7 @@ function audit_details_preview(mixed $details): string
 <?php endif; ?>
 
 <form method="GET" action="audit_logs.php" style="margin-bottom:16px">
+  <input type="hidden" name="page" value="1">
   <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
     <input type="search" name="q" value="<?= htmlspecialchars($filter_q) ?>" placeholder="Rechercher action, IP, acteur, détails..."
       style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:8px 13px;font-size:.83rem;color:#e8eaf2;font-family:'DM Sans',sans-serif;outline:none;min-width:240px">
@@ -228,10 +230,10 @@ function audit_details_preview(mixed $details): string
       <option value="<?= htmlspecialchars($typeOption) ?>" <?= $filter_target_type === $typeOption ? 'selected' : '' ?>><?= htmlspecialchars($typeOption) ?></option>
       <?php endforeach; ?>
     </select>
-    <input type="number" name="user_id" value="<?= $filter_user_id > 0 ? $filter_user_id : '' ?>" placeholder="ID utilisateur" min="1"
+    <input type="number" name="user_id" value="<?= $filter_user_id > 0 ? $filter_user_id : '' ?>" placeholder="ID utilisateur" min="1" <?= $filter_admin_id > 0 ? 'disabled' : '' ?>
       style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:8px 12px;font-size:.83rem;color:#e8eaf2;font-family:'DM Sans',sans-serif;outline:none;width:120px">
-    <select name="admin_id" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:8px 12px;font-size:.83rem;color:#e8eaf2;font-family:'DM Sans',sans-serif;outline:none">
-      <option value="0">Tous les admins</option>
+    <select name="admin_id" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:8px 12px;font-size:.83rem;color:#e8eaf2;font-family:'DM Sans',sans-serif;outline:none" <?= $filter_user_id > 0 ? 'disabled' : '' ?>>
+      <option value="">Tous les admins</option>
       <?php foreach ($admins as $admin): ?>
       <option value="<?= (int) ($admin['id'] ?? 0) ?>" <?= $filter_admin_id === (int) ($admin['id'] ?? 0) ? 'selected' : '' ?>>
         <?= htmlspecialchars(trim(($admin['prenom'] ?? '').' '.($admin['nom'] ?? '')).' — '.($admin['email'] ?? '')) ?>
