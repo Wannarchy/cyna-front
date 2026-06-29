@@ -6,6 +6,7 @@ require_once __DIR__ . '/../includes/lang.php';
 require_once __DIR__ . '/../includes/csrf.php';
 require_once __DIR__ . '/../includes/address_helpers.php';
 require_once __DIR__ . '/../includes/form_validation.php';
+require_once __DIR__ . '/../includes/public_layout.php';
 
 if (!isset($_SESSION['utilisateur_id'])) { header('Location: connexion.php'); exit; }
 
@@ -121,7 +122,6 @@ if (isset($_GET['edit'])) {
     }
 }
 
-$nb_panier = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 $usageOptions = address_usage_type_options($lang);
 $show_form = isset($_GET['new']) || $edit || !empty($errors);
 
@@ -153,7 +153,7 @@ try {
     <div class="container-fluid px-3 px-lg-4">
       <a class="navbar-brand" href="../index.php">CYNA</a>
       <div class="d-flex align-items-center gap-2 ms-auto">
-        <a class="nav-link" href="panier.php"><?= $nb_panier > 0 ? "($nb_panier)" : '' ?></a>
+        <a class="nav-link" href="panier.php">Panier <?= cyna_cart_badge_html() ?></a>
         <a class="nav-link" href="deconnexion.php"><?= t('nav_logout') ?></a>
         <?= lang_switcher() ?>
       </div>

@@ -4,9 +4,9 @@ cyna_session_start();
 
 require_once __DIR__ . '/includes/home_repository.php';
 require_once __DIR__ . '/includes/lang.php';
+require_once __DIR__ . '/includes/public_layout.php';
 
 $est_connecte = isset($_SESSION['utilisateur_id']);
-$nb_panier    = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 
 $slides     = home_get_slides($connexion);
 $homeText   = home_get_text($connexion, $lang);
@@ -62,9 +62,7 @@ $lbl_social     = $lang==='en'?'Social':($lang==='ar'?'التواصل الاجت
           <a href="public/catalogue.php"><?= t('nav_catalogue') ?></a>
           <a href="public/panier.php" class="cart-btn">
             <?= $lbl_cart ?>
-            <?php if ($nb_panier > 0): ?>
-              <span class="cart-count"><?= $nb_panier ?></span>
-            <?php endif; ?>
+            <?= cyna_cart_badge_html() ?>
           </a>
           <?php
           $is_admin = ! empty($_SESSION['is_admin']);

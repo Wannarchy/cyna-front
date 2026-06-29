@@ -121,19 +121,6 @@
   background: rgba(38, 208, 206, 0.2) !important;
 }
 
-.cart-count {
-  background: #26d0ce;
-  color: #0b1020;
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  font-size: 0.65rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .btn-cyna {
   display: inline-flex;
   align-items: center;

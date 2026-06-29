@@ -9,7 +9,7 @@ $flashSuccess = trim($_GET['success'] ?? '');
 $flashError = trim($_GET['error'] ?? '');
 
 try {
-    $slides = admin_api()->adminGetSlides();
+    $slides = admin_list_slides();
     if (isset($_GET['edit'])) {
         foreach ($slides as $slide) {
             if ((int) ($slide['id'] ?? 0) === (int) $_GET['edit']) {

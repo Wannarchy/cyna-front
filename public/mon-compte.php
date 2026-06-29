@@ -23,7 +23,6 @@ if (! $user) {
     exit;
 }
 
-$nb_panier = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 $tab       = $_GET['tab'] ?? 'profil';
 $success   = '';
 $errors    = [];

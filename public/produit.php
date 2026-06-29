@@ -27,8 +27,6 @@ if (isset($_SESSION['utilisateur_id'])) {
     $_SESSION['is_admin'] = (int) ($_SESSION['is_admin'] ?? 0);
 }
 
-$nb_panier = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
-
 // Labels traduits
 $lbl_home         = $lang==='en'?'Home':($lang==='ar'?'الرئيسية':($lang==='he'?'דף הבית':'Accueil'));
 $lbl_catalogue    = $lang==='en'?'Catalogue':($lang==='ar'?'الكتالوج':($lang==='he'?'קטלוג':'Catalogue'));

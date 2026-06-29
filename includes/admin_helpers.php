@@ -323,6 +323,27 @@ function admin_slide_payload(array $input, ?string $newImagePath = null, ?string
     return $payload;
 }
 
+/**
+ * Liste les slides admin (toutes, y compris inactives).
+ * Repli sur GET /homepage si l'API déployée n'a pas encore GET /admin/homepage/slides.
+ */
+function admin_list_slides(): array
+{
+    try {
+        return admin_api()->adminGetSlides();
+    } catch (RuntimeException $e) {
+        $message = $e->getMessage();
+        if (stripos($message, 'GET method is not supported') !== false
+            || stripos($message, 'Method Not Allowed') !== false) {
+            $homepage = admin_api()->getHomepage();
+
+            return $homepage['slides'] ?? [];
+        }
+
+        throw $e;
+    }
+}
+
 function admin_log_row(array $log): array
 {
     $user = is_array($log['user'] ?? null) ? $log['user'] : [];

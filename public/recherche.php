@@ -35,7 +35,6 @@ $products      = array_slice($filtered, $offset, $per_page);
 [$global_min, $global_max] = search_price_bounds($allProducts);
 
 $est_connecte = isset($_SESSION['utilisateur_id']);
-$nb_panier    = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 
 // Labels
 $lbl_search_ph   = $lang==='en'?'Search a service (SOC, EDR, XDR…)':($lang==='ar'?'ابحث عن خدمة (SOC، EDR، XDR…)':($lang==='he'?'חפש שירות (SOC, EDR, XDR…)':'Rechercher un service (SOC, EDR, XDR…)'));

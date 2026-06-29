@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../config/config.php';
 cyna_session_start();
 require_once __DIR__ . '/../includes/lang.php';
+require_once __DIR__ . '/../includes/public_layout.php';
 
 if (!isset($_SESSION['utilisateur_id'])) { header('Location: connexion.php'); exit; }
 
@@ -59,7 +60,6 @@ if (isset($_GET['added'])) {
     $success = $lang==='en'?'Card added successfully!':($lang==='ar'?'تمت إضافة البطاقة بنجاح!':($lang==='he'?'הכרטיס נוסף בהצלחה!':'Carte ajoutée avec succès !'));
 }
 
-$nb_panier = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 $show_form = isset($_GET['new']) || !empty($errors);
 $cur_year  = (int)date('Y');
 $cur_month = (int)date('m');
@@ -148,7 +148,7 @@ $lbl_confirm_del = $lang==='en'?'Delete this card?':($lang==='ar'?'حذف هذه
       <div class="d-flex align-items-center gap-2 ms-auto">
         <?= lang_switcher() ?>
         <a class="nav-link-p" href="panier.php">
-          <?= $nb_panier > 0 ? "($nb_panier)" : '' ?>
+          Panier <?= cyna_cart_badge_html() ?>
         </a>
         <a class="nav-link-p" href="deconnexion.php"><?= t('nav_logout') ?></a>
       </div>

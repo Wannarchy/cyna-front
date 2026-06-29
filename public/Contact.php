@@ -4,9 +4,9 @@ require_once __DIR__ . '/../config/config.php';
 cyna_session_start();
 require_once __DIR__ . '/../includes/lang.php';
 require_once __DIR__ . '/../includes/form_validation.php';
+require_once __DIR__ . '/../includes/public_layout.php';
 
 $est_connecte = isset($_SESSION['utilisateur_id']);
-$nb_panier    = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 $success      = false;
 $errors       = [];
 
@@ -198,7 +198,7 @@ $faqs = $lang==='en' ? [
       <a class="navbar-brand" href="../index.php">CYNA</a>
       <div class="d-flex align-items-center gap-2 ms-auto">
         <a href="catalogue.php" class="nav-link-p d-none d-md-block"><?= t('nav_catalogue') ?></a>
-        <a href="panier.php" class="cart-btn"><?= $nb_panier > 0 ? " ($nb_panier)" : '' ?></a>
+        <a href="panier.php" class="cart-btn">Panier <?= cyna_cart_badge_html() ?></a>
         <?php if ($est_connecte): ?>
         <a href="mon-compte.php" class="nav-link-p"><?= t('nav_account') ?></a>
         <a href="deconnexion.php" class="nav-link-p"><?= t('nav_logout') ?></a>

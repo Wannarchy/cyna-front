@@ -4,6 +4,7 @@ require_once __DIR__ . '/../config/config.php';
 cyna_session_start();
 require_once __DIR__ . '/../includes/lang.php';
 require_once __DIR__ . '/../includes/order_helpers.php';
+require_once __DIR__ . '/../includes/public_layout.php';
 
 if (! isset($_SESSION['utilisateur_id'])) {
     header('Location: connexion.php');
@@ -26,7 +27,6 @@ if ($order_id > 0) {
 
 $items = $order['items'] ?? [];
 $summary = $order ? order_summary_amounts($order) : null;
-$nb_panier = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 
 $lbl_confirmed   = t('order_confirmed');
 $lbl_thanks      = t('order_thanks');
@@ -67,7 +67,7 @@ $lbl_secure_note = $lang==='en'?'Payment processed securely via Stripe.':($lang=
     <a class="navbar-brand" href="../index.php">CYNA</a>
     <div class="d-flex align-items-center gap-2 ms-auto">
       <?= lang_switcher() ?>
-      <a class="nav-link" href="panier.php">🛒 <?= $nb_panier > 0 ? "($nb_panier)" : '' ?></a>
+      <a class="nav-link" href="panier.php">Panier <?= cyna_cart_badge_html() ?></a>
       <a class="nav-link" href="mon-compte.php"><?= t('nav_account') ?></a>
     </div>
   </div>

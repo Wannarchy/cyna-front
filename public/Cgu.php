@@ -5,7 +5,6 @@ cyna_session_start();
 require_once __DIR__ . '/../includes/lang.php';
 
 $est_connecte = isset($_SESSION['utilisateur_id']);
-$nb_panier    = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 
 $sections = $lang === 'en' ? [
     ['1. Purpose', 'These terms of service govern the use of the CYNA platform and the SaaS cybersecurity services (SOC, EDR, XDR) offered by CYNA-IT.'],

@@ -126,10 +126,27 @@ video {
 }
 
 .cyna-nav-cart {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
   background: rgba(38, 208, 206, 0.1) !important;
   border: 1px solid rgba(38, 208, 206, 0.2) !important;
   color: var(--cyna-cyan) !important;
   font-weight: 600 !important;
+}
+
+.cart-badge {
+  background: #ef4444;
+  color: #fff;
+  border-radius: 999px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 18px;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .cyna-nav-cta {

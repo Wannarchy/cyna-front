@@ -26,6 +26,13 @@ function cart_session_count(): int
     return (int) array_sum(array_column($cart, 'qty'));
 }
 
+function cart_session_distinct_count(): int
+{
+    $cart = $_SESSION['cart'] ?? [];
+
+    return is_array($cart) ? count($cart) : 0;
+}
+
 function cart_set_quantity(array $cart, int $productId, int $qty): array
 {
     if (! isset($cart[$productId])) {

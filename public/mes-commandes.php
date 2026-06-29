@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../config/config.php';
 cyna_session_start();
 require_once __DIR__ . '/../includes/lang.php';
+require_once __DIR__ . '/../includes/public_layout.php';
 
 if (!isset($_SESSION['utilisateur_id'])) { header('Location: connexion.php'); exit; }
 $user_id = (int)$_SESSION['utilisateur_id'];
@@ -12,8 +13,6 @@ $user = [
     'nom' => $_SESSION['utilisateur_nom'] ?? '',
     'email' => $_SESSION['utilisateur_email'] ?? '',
 ];
-
-$nb_panier = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 
 // Téléchargement facture PDF
 $download_id = isset($_GET['facture']) ? (int)$_GET['facture'] : 0;
@@ -162,7 +161,7 @@ $lbl_discover  = $lang==='en'?'Discover our services →':($lang==='ar'?'اكت�
       <div class="d-flex align-items-center gap-2 ms-auto">
         <?= lang_switcher() ?>
         <a class="nav-link" href="panier.php">
-          <?= $nb_panier > 0 ? "($nb_panier)" : '' ?>
+          Panier <?= cyna_cart_badge_html() ?>
         </a>
         <a class="nav-link" href="deconnexion.php"><?= t('nav_logout') ?></a>
       </div>

@@ -5,7 +5,6 @@ cyna_session_start();
 require_once __DIR__ . '/../includes/lang.php';
 
 $est_connecte = isset($_SESSION['utilisateur_id']);
-$nb_panier    = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 
 $sections = $lang === 'en' ? [
     ['Site publisher', 'This website is published by <strong>CYNA-IT</strong>, a company registered in France.<br>Registered office: 10 Rue de Penthièvre, 75008 Paris, France.<br>SIRET: 91371103200015.<br>Email: contact@cyna-it.fr.'],

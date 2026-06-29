@@ -5,7 +5,6 @@ cyna_session_start();
 require_once __DIR__ . '/../includes/lang.php';
 
 $est_connecte = isset($_SESSION['utilisateur_id']);
-$nb_panier    = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 
 $sections = $lang === 'en' ? [
     ['Who we are', '<strong>CYNA</strong> is a cybersecurity company specializing in SaaS solutions for businesses. Our mission: make advanced security accessible, simple and proactive.'],

@@ -1,5 +1,22 @@
 <?php
 
+require_once __DIR__ . '/cart_repository.php';
+
+function cyna_cart_badge_count(): int
+{
+    return cart_session_distinct_count();
+}
+
+function cyna_cart_badge_html(): string
+{
+    $count = cyna_cart_badge_count();
+    if ($count <= 0) {
+        return '';
+    }
+
+    return '<span class="cart-badge">'.(int) $count.'</span>';
+}
+
 /**
  * @return array{root: string, public: string, assets: string, in_public: bool}
  */
@@ -59,7 +76,6 @@ function cyna_public_nav(bool $withSearch = true): void
 {
     $p = cyna_layout_paths();
     $est_connecte = isset($_SESSION['utilisateur_id']);
-    $nb_panier = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
     $is_admin = ! empty($_SESSION['is_admin']);
     ?>
 <nav class="navbar navbar-expand-lg sticky-top cyna-navbar">
@@ -81,7 +97,7 @@ function cyna_public_nav(bool $withSearch = true): void
         <a href="<?= htmlspecialchars($p['public']) ?>recherche.php">Recherche</a>
         <a href="<?= htmlspecialchars($p['public']) ?>panier.php" class="cyna-nav-cart">
           Panier
-          <?php if ($nb_panier > 0): ?><span class="badge bg-dark ms-1"><?= (int) $nb_panier ?></span><?php endif; ?>
+          <?= cyna_cart_badge_html() ?>
         </a>
         <?php if ($is_admin): ?>
         <a href="<?= htmlspecialchars($p['root']) ?>admin/index.php">Admin</a>

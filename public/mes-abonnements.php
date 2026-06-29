@@ -4,6 +4,7 @@ require_once __DIR__ . '/../config/config.php';
 cyna_session_start();
 require_once __DIR__ . '/../includes/home_repository.php';
 require_once __DIR__ . '/../includes/lang.php';
+require_once __DIR__ . '/../includes/public_layout.php';
 
 if (!isset($_SESSION['utilisateur_id'])) { header('Location: connexion.php'); exit; }
 $user_id = (int)$_SESSION['utilisateur_id'];
@@ -71,7 +72,6 @@ $subscriptions = array_map(function (array $sub) {
 $active_count    = count(array_filter($subscriptions, function($s) { return $s['status'] === 'active'; }));
 $cancelled_count = count(array_filter($subscriptions, function($s) { return $s['status'] === 'cancelled'; }));
 $total_monthly   = array_sum(array_map(function($s) { return $s['status'] === 'active' ? (float)$s['price'] : 0; }, $subscriptions));
-$nb_panier       = array_sum(array_column($_SESSION['panier'] ?? [], 'qty'));
 
 // Labels traduits
 $lbl_active_subs  = $lang==='en'?'Active subscriptions':($lang==='ar'?' الاشتراكات النشطة':($lang==='he'?' מנויים פעילים':'Abonnements actifs'));
@@ -120,7 +120,7 @@ $lbl_active_until = $lang==='en'?'Active until':($lang==='ar'?'نشط حتى':($
       <a class="navbar-brand" href="../index.php">CYNA</a>
       <div class="d-flex align-items-center gap-2 ms-auto">
         <?= lang_switcher() ?>
-        <a href="panier.php" class="nav-link-p"><?= $nb_panier > 0 ? " ($nb_panier)" : '' ?></a>
+        <a href="panier.php" class="nav-link-p">Panier <?= cyna_cart_badge_html() ?></a>
         <a href="deconnexion.php" class="nav-link-p"><?= t('nav_logout') ?></a>
       </div>
     </div>
