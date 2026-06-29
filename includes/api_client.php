@@ -182,14 +182,19 @@ class ApiClient
         return $this->post('auth/forgot-password', ['email' => $email]);
     }
 
-    public function resetPassword(string $email, string $token, string $password): array
+    public function resetPassword(string $token, string $password, ?string $email = null): array
     {
-        return $this->post('auth/reset-password', [
-            'email' => $email,
+        $payload = [
             'token' => $token,
             'password' => $password,
             'password_confirmation' => $password,
-        ]);
+        ];
+
+        if ($email !== null && $email !== '') {
+            $payload['email'] = $email;
+        }
+
+        return $this->post('auth/reset-password', $payload);
     }
 
     public function resendVerification(): array
